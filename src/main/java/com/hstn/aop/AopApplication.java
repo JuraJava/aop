@@ -1,5 +1,6 @@
 package com.hstn.aop;
 
+import com.hstn.aop.dao.AdminDAO;
 import com.hstn.aop.dao.UserDataDAO;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,13 +15,14 @@ public class AopApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(UserDataDAO userDataDAO) {
+	public CommandLineRunner commandLineRunner(UserDataDAO userDataDAO, AdminDAO adminDAO) {
 		return runner -> {
-			demoTheBeforeAdvice(userDataDAO);
+			demoTheBeforeAdvice(userDataDAO, adminDAO);
 		};
 	}
 
-	private void demoTheBeforeAdvice(UserDataDAO userDataDAO) {
+	private void demoTheBeforeAdvice(UserDataDAO userDataDAO, AdminDAO adminDAO) {
 		userDataDAO.addUserData();
+		adminDAO.addUserData();
 	}
 }

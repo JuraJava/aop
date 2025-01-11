@@ -11,7 +11,7 @@ public class MyLoggingAspect {
     @Before("execution(public void addUserData())")
 // Эта аннотация показывает перед каким методом будет вызван этот метод,
 // в параметрах этой аннотации указывается точка входа и сам тот метод
-// @Before - это эдвайс, а то, что дальше поинт кат
+// @Before - это эдвайс, а то, что дальше point (точечный) cut (разрез)
     public void beforeAddUserData() {
         System.out.println("111111111111111111111\nBefore addUserData");
     }
