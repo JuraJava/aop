@@ -38,6 +38,8 @@ public class MyLoggingAspect {
         System.out.println("    1 Before");
     }
 
+    // Какой метод мы подставим в параметры аннотации @Before тот и отрабатывает
+
 //    @Before("pointcutForMethods()")
 //    public void beforeAdmin() {
 //        System.out.println("    3 Before");
