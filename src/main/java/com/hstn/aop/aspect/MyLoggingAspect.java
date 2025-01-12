@@ -9,15 +9,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyLoggingAspect {
 
-    @Pointcut("execution(public void add*())")
+    @Pointcut("execution(* com.hstn.aop.dao.*.*(..))")
     private void pointcutForMethods() {
     }
 
     @Before("pointcutForMethods()")
-// Эта аннотация показывает перед каким методом будет вызван этот метод,
-// в параметрах этой аннотации указывается точка входа и сам тот метод
-// @Before - это эдвайс, а то, что дальше point (точечный) cut (разрез)
     public void beforeAddUserData() {
-        System.out.println("111111111111111111111\nBefore addUserData");
+        System.out.println("    1 Before");
+    }
+
+    @Before("pointcutForMethods()")
+    public void beforeAdmin() {
+        System.out.println("    3 Before");
     }
 }

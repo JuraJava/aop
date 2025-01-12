@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 public class UserDataImpl implements UserDataDAO {
     @Override
     public void addUserData() {
-        System.out.println(getClass() + ": add user data");
+        System.out.println(getClass() + ": add user data from USER");
     }
 }

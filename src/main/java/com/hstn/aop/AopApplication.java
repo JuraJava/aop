@@ -23,6 +23,14 @@ public class AopApplication {
 
 	private void demoTheBeforeAdvice(UserDataDAO userDataDAO, AdminDAO adminDAO) {
 		userDataDAO.addUserData();
-		adminDAO.addUserData();
+
+		adminDAO.addAdmin();
+
+		adminDAO.setName("Anna");
+		adminDAO.setPassword("12345678");
+
+		String name = adminDAO.getName();
+		String password = adminDAO.getPassword();
+
 	}
 }
