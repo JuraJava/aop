@@ -2,46 +2,20 @@ package com.hstn.aop.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(1)
+// С помощью этой аннотации устанавливается порядок вызова
+// методов, помеченных @Aspect (не только методов этого класса)
+// В параметре аннотации может быть и отрицательное число
+// А если в параметрах аннотации @Order двух или более методов
+// будет указано одно число, то эти методы будут вызываться в естественном порядке
 public class MyLoggingAspect {
-
-    @Pointcut("execution(* com.hstn.aop.dao.*.*(..))")
-    private void pointcutForMethods() {
-    }
-
-    @Pointcut("execution(* com.hstn.aop.dao.*.get*(..))")
-    private void pointcutForGetter() {
-    }
-
-    @Pointcut("execution(* com.hstn.aop.dao.*.set*(..))")
-    private void pointcutForSetter() {
-    }
-
-    @Pointcut("pointcutForSetter() || pointcutForGetter()")
-    private void pointcutForSetterAndGetter() {
-    }
-
-    @Pointcut("pointcutForMethods() && !(pointcutForSetter() || pointcutForGetter())")
-    private void pointcutNotForSetterAndGetter() {
-    }
-
-//    @Before("pointcutForMethods()")
-//    @Before("pointcutForGetter()")
-//    @Before("pointcutForSetter()")
-//    @Before("pointcutForSetterAndGetter()")
-    @Before("pointcutNotForSetterAndGetter()")
+    @Before("MyPointcutExpression.pointcutForMethods()")
     public void beforeAddUserData() {
         System.out.println("    1 Before");
     }
-
-    // Какой метод мы подставим в параметры аннотации @Before тот и отрабатывает
-
-//    @Before("pointcutForMethods()")
-//    public void beforeAdmin() {
-//        System.out.println("    3 Before");
-//    }
 }
