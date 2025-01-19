@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-@Order(2)
+@Order(20)
 public class Manager {
     @Before("MyPointcutExpression.pointcutForMethods()")
     public void beforeManager() {

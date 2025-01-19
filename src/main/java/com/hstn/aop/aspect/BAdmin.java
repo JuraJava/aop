@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-@Order(3)
+@Order(30)
 public class BAdmin {
     @Before("MyPointcutExpression.pointcutForMethods()")
     public void beforeAdmin() {
