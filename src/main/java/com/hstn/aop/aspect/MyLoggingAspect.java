@@ -1,11 +1,15 @@
 package com.hstn.aop.aspect;
 
+import com.hstn.aop.Admin;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Aspect
 @Component
@@ -16,6 +20,25 @@ import org.springframework.stereotype.Component;
 // А если в параметрах аннотации @Order двух или более методов
 // будет указано одно число, то эти методы будут вызываться в естественном порядке
 public class MyLoggingAspect {
+
+    @AfterReturning(pointcut = "execution(* find*(..))",
+            returning = "result")
+    public void afterReturning(JoinPoint joinPoint, List<Admin> result) {
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println("     methodName = " + methodName);
+        System.out.println("     result = " + result);
+
+        // Далее мы можем не просто получать результат,
+        // но и перед выводом как-то его изменять
+
+        changeResult(result);
+    }
+
+    private void changeResult(List<Admin> result) {
+        for (Admin admin : result) {
+            admin.setName(admin.getName().toUpperCase());
+        }
+    }
 
     @Before("MyPointcutExpression.pointcutForMethods()")
     public void beforeAddUserData(JoinPoint joinPoint) {

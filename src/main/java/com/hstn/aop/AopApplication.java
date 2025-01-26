@@ -27,7 +27,7 @@ public class AopApplication {
 	private void runAfterReturningAdvice(AdminDAO adminDAO) {
 		List<Admin> admins = adminDAO.findAdmins();
 		for (Admin admin : admins) {
-			System.out.println(admins);
+			System.out.println(admin);
 		}
 
 	}

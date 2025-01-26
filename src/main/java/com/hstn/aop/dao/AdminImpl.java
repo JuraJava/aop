@@ -43,6 +43,7 @@ public class AdminImpl implements AdminDAO {
         admins.add(new Admin("Anna", 18));
         admins.add(new Admin("Boris", 25));
         admins.add(new Admin("Vova", 30));
+        System.out.println("    End of findAdmins method");
         return admins;
     }
 }
