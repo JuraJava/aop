@@ -1,6 +1,10 @@
 package com.hstn.aop.dao;
 
+import com.hstn.aop.Admin;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class AdminImpl implements AdminDAO {
@@ -32,4 +36,15 @@ public class AdminImpl implements AdminDAO {
         System.out.println(getClass() + ": set password method");
         this.password = password;
     }
+
+    @Override
+    public List<Admin> findAdmins() {
+        List<Admin> admins = new ArrayList<>();
+        admins.add(new Admin("Anna", 18));
+        admins.add(new Admin("Boris", 25));
+        admins.add(new Admin("Vova", 30));
+        return admins;
+    }
 }
+
+
