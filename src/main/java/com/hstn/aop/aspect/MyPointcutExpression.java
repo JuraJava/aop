@@ -5,7 +5,11 @@ import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
 public class MyPointcutExpression {
-    @Pointcut("execution(* com.hstn.aop.dao.*.*(..))")
+
+//    @Pointcut("execution(* com.hstn.aop.dao.*.*(..))")
+    @Pointcut("execution(* com.hstn.aop.dao.*.test*(..))")
+//    Это добавили, а предыдущее закомментировали чтобы при
+//    изучении @AfterReturning ничего лишнего не отображалось
     public void pointcutForMethods() {
     }
 
