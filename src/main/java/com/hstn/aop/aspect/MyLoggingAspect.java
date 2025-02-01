@@ -29,8 +29,14 @@ public class MyLoggingAspect {
 
         long startTime = System.currentTimeMillis();
 
-        Object result = joinPoint.proceed();
-        // Это необходимо только для метода, помеченного @Around
+        Object result = null;
+        try {
+            result = joinPoint.proceed();
+        } catch (Throwable e) {
+            System.out.println("    " + e.getMessage());
+            result = "  Exeption. Defauit value: refuse credit.";
+        }
+// Это (что выше начиная с Object result = null;) необходимо только для метода, помеченного @Around
 
         long duration = System.currentTimeMillis() - startTime;
         System.out.println("    Around duration: = " + duration);
