@@ -2,10 +2,7 @@ package com.hstn.aop.aspect;
 
 import com.hstn.aop.Admin;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -22,6 +19,14 @@ import java.util.List;
 // будет указано одно число, то эти методы будут вызываться в естественном порядке
 public class MyLoggingAspect {
 
+    @After("execution(* find*(..))")
+    public void afterAdvice(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().getName();
+        System.out.println("    After = " + method);
+    }
+    // Этот метод (который выше) срабатывает если методы, указанные
+    // в параметрах, либо завершаются успешно, либо если выбрасывают exeption
+
     @AfterThrowing(pointcut = "execution(* find*(..))",
             throwing = "exeption")
     public void afterThrowing(JoinPoint joinPoint, Throwable exeption) {
@@ -30,19 +35,23 @@ public class MyLoggingAspect {
         System.out.println("    AfterThrowing = " + method);
         System.out.println("    AfterThrowing exeption = " + exeption.getMessage());
     }
+    // Этот метод (который выше) срабатывает если методы, указанные
+    // в параметрах, выбросили какие-то exeption
 
     @AfterReturning(pointcut = "execution(* find*(..))",
             returning = "result")
     public void afterReturning(JoinPoint joinPoint, List<Admin> result) {
         String methodName = joinPoint.getSignature().getName();
-        System.out.println("     methodName = " + methodName);
-        System.out.println("     result = " + result);
+        System.out.println("    AfterReturning methodName = " + methodName);
+        System.out.println("    AfterReturning result = " + result);
 
         // Далее мы можем не просто получать результат,
         // но и перед выводом как-то его изменять
 
         changeResult(result);
     }
+    // Этот метод (который выше) срабатывает если методы, указанные
+    // в параметрах, успешно завершаются
 
     private void changeResult(List<Admin> result) {
         for (Admin admin : result) {
