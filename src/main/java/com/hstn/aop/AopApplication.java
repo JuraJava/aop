@@ -2,6 +2,7 @@ package com.hstn.aop;
 
 import com.hstn.aop.dao.AdminDAO;
 import com.hstn.aop.dao.UserDataDAO;
+import com.hstn.aop.service.BankService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,14 +18,26 @@ public class AopApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(UserDataDAO userDataDAO, AdminDAO adminDAO) {
+	public CommandLineRunner commandLineRunner(UserDataDAO userDataDAO, AdminDAO adminDAO,
+											   BankService bankService) {
 		return runner -> {
 //			demoTheBeforeAdvice(userDataDAO, adminDAO);
 //			runAfterReturningAdvice(adminDAO);
 //			runAfterThrowingAdvice(adminDAO);
-			runAfterAdvice(adminDAO);
+//			runAfterAdvice(adminDAO);
+			runAroundAdvice(bankService);
 		};
 	}
+
+	private void runAroundAdvice(BankService bankService) {
+		System.out.println("	Main program STARTED");
+
+		String message = bankService.getCredit();
+		System.out.println("	The decision is: " + message);
+
+		System.out.println("	Main program FINISHED");
+	}
+
 
 	private void runAfterAdvice(AdminDAO adminDAO) {
 		List<Admin> admins = null;

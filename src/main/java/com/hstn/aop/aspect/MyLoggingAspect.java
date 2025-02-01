@@ -2,6 +2,7 @@ package com.hstn.aop.aspect;
 
 import com.hstn.aop.Admin;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
@@ -18,6 +19,27 @@ import java.util.List;
 // А если в параметрах аннотации @Order двух или более методов
 // будет указано одно число, то эти методы будут вызываться в естественном порядке
 public class MyLoggingAspect {
+
+    @Around("execution(* getCr*(..))")
+    public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+        // ProceedingJoinPoint необходимо только для метода, помеченного @Around
+
+        String method = joinPoint.getSignature().getName();
+        System.out.println("    Around = " + method);
+
+        long startTime = System.currentTimeMillis();
+
+        Object result = joinPoint.proceed();
+        // Это необходимо только для метода, помеченного @Around
+
+        long duration = System.currentTimeMillis() - startTime;
+        System.out.println("    Around duration: = " + duration);
+
+        return result;
+        // Это необходимо только для метода, помеченного @Around
+    }
+    // Этот метод (который выше) срабатывает до методов, указанных
+    // в параметрах, и после
 
     @After("execution(* find*(..))")
     public void afterAdvice(JoinPoint joinPoint) {
