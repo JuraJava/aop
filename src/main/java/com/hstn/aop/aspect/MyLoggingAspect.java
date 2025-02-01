@@ -3,6 +3,7 @@ package com.hstn.aop.aspect;
 import com.hstn.aop.Admin;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -20,6 +21,15 @@ import java.util.List;
 // А если в параметрах аннотации @Order двух или более методов
 // будет указано одно число, то эти методы будут вызываться в естественном порядке
 public class MyLoggingAspect {
+
+    @AfterThrowing(pointcut = "execution(* find*(..))",
+            throwing = "exeption")
+    public void afterThrowing(JoinPoint joinPoint, Throwable exeption) {
+
+        String method = joinPoint.getSignature().getName();
+        System.out.println("    AfterThrowing = " + method);
+        System.out.println("    AfterThrowing exeption = " + exeption.getMessage());
+    }
 
     @AfterReturning(pointcut = "execution(* find*(..))",
             returning = "result")
