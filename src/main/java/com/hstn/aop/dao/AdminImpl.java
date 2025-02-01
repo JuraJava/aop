@@ -46,6 +46,20 @@ public class AdminImpl implements AdminDAO {
         System.out.println("    End of findAdmins method");
         return admins;
     }
+
+    @Override
+    public List<Admin> findAdmins(boolean flag) {
+        if (flag) {
+            throw new RuntimeException("Exception in findAdmins");
+        }
+
+        List<Admin> admins = new ArrayList<>();
+        admins.add(new Admin("Anna", 18));
+        admins.add(new Admin("Boris", 25));
+        admins.add(new Admin("Vova", 30));
+        System.out.println("    End of findAdmins method");
+        return admins;
+    }
 }
 
 

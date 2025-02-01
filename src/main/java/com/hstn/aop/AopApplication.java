@@ -20,8 +20,19 @@ public class AopApplication {
 	public CommandLineRunner commandLineRunner(UserDataDAO userDataDAO, AdminDAO adminDAO) {
 		return runner -> {
 //			demoTheBeforeAdvice(userDataDAO, adminDAO);
-			runAfterReturningAdvice(adminDAO);
+//			runAfterReturningAdvice(adminDAO);
+			runAfterThrowingAdvice(adminDAO);
 		};
+	}
+
+	private void runAfterThrowingAdvice(AdminDAO adminDAO) {
+		List<Admin> admins = null;
+		try {
+			boolean flag = true;
+			admins = adminDAO.findAdmins(flag);
+		} catch (Exception e){
+			System.out.println("Exception in main: " + e.getMessage());
+		}
 	}
 
 	private void runAfterReturningAdvice(AdminDAO adminDAO) {

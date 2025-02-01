@@ -18,4 +18,6 @@ public interface AdminDAO {
 
     List<Admin> findAdmins();
 
+    List<Admin> findAdmins(boolean flag);
+
 }
