@@ -25,8 +25,20 @@ public class AopApplication {
 //			runAfterReturningAdvice(adminDAO);
 //			runAfterThrowingAdvice(adminDAO);
 //			runAfterAdvice(adminDAO);
-			runAroundAdvice(bankService);
+//			runAroundAdvice(bankService);
+			runAroundAdviceWithExeption(bankService);
 		};
+	}
+
+	private void runAroundAdviceWithExeption(BankService bankService) {
+		System.out.println("	Main program STARTED");
+
+		boolean  flag = true;
+
+		String message = bankService.getCredit(flag);
+		System.out.println("	The decision is: " + message);
+
+		System.out.println("	Main program FINISHED");
 	}
 
 	private void runAroundAdvice(BankService bankService) {
